@@ -2,6 +2,9 @@
   "name": "testiwall",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -12,6 +15,7 @@
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate dev",
     "db:seed": "tsx scripts/seed.ts",
+    "db:migrate:deploy": "prisma migrate deploy",
     "postinstall": "prisma generate"
   },
   "dependencies": {
