@@ -39,11 +39,11 @@ export function ProjectAppearanceForm({
             name="brandColor"
             type="color"
             defaultValue={project.brandColor}
-            className="h-10 w-14 cursor-pointer rounded-md border border-slate-300 bg-white p-1"
+            className="h-10 w-14 cursor-pointer rounded-md border border-input bg-background p-1"
           />
           <Input id="brandColorHex" name="brandColorHex" defaultValue={project.brandColor} placeholder="#0ea5e9" />
         </div>
-        <p className="text-xs text-slate-500">Used for profile circles and accent highlights in your wall.</p>
+        <p className="text-xs text-muted-foreground">Used for profile circles and accent highlights in your wall.</p>
       </div>
       <div className="grid grid-cols-2 gap-3">
         <div className="space-y-2">
@@ -70,7 +70,7 @@ export function ProjectAppearanceForm({
 
       <input type="hidden" name="carouselAutoplay" value="false" />
       {layout === "carousel" ? (
-        <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-slate-200 bg-slate-50/50 p-3 transition-colors hover:bg-slate-50">
+        <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-border bg-muted/30 p-3 transition-colors hover:bg-muted/50">
           <input
             type="checkbox"
             name="carouselAutoplay"
@@ -78,7 +78,7 @@ export function ProjectAppearanceForm({
             defaultChecked={project.carouselAutoplay}
             className="mt-1"
           />
-          <span className="text-sm text-slate-600">Auto-scroll carousel testimonials</span>
+          <span className="text-sm text-foreground">Auto-scroll carousel testimonials</span>
         </label>
       ) : null}
 

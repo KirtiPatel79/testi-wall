@@ -1,4 +1,4 @@
-﻿import { revalidatePath } from "next/cache";
+import { revalidatePath } from "next/cache";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { requireUserId } from "@/lib/auth-helpers";
@@ -79,15 +79,15 @@ export default async function ModerationPage({
   }
 
   const statusConfig = {
-    PENDING: { label: "Pending", className: "border-amber-200 bg-amber-50 text-amber-800" },
-    APPROVED: { label: "Approved", className: "border-emerald-200 bg-emerald-50 text-emerald-800" },
-    REJECTED: { label: "Rejected", className: "border-rose-200 bg-rose-50 text-rose-800" },
+    PENDING: { label: "Pending", className: "border-accent/50 bg-accent/20 text-accent-foreground" },
+    APPROVED: { label: "Approved", className: "border-secondary/50 bg-secondary/20 text-secondary-foreground" },
+    REJECTED: { label: "Rejected", className: "border-destructive/50 bg-destructive/20 text-destructive-foreground" },
   };
 
   return (
     <section className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <h2 className="text-xl font-semibold text-slate-900">Review Submissions</h2>
+        <h2 className="text-xl font-semibold text-foreground">Review Submissions</h2>
         <div className="flex flex-wrap gap-2">
           {[
             ["ALL", "All"],
@@ -104,11 +104,11 @@ export default async function ModerationPage({
                 className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
                   isActive
                     ? key === "ALL"
-                      ? "bg-slate-900 text-white shadow-sm"
+                      ? "bg-primary text-primary-foreground shadow-sm"
                       : "ring-2 ring-offset-1 " + (config?.className ?? "")
                     : key === "ALL"
-                    ? "bg-slate-100 text-slate-700 hover:bg-slate-200"
-                    : config?.className ?? "bg-slate-100"
+                    ? "bg-muted text-foreground hover:bg-muted/80"
+                    : config?.className ?? "bg-muted"
                 }`}
               >
                 {label}
@@ -119,21 +119,21 @@ export default async function ModerationPage({
       </div>
 
       {testimonials.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-12 text-center text-slate-500">
+        <div className="rounded-xl border border-dashed border-border bg-muted p-12 text-center text-muted-foreground">
           No submissions in this view yet.
         </div>
       ) : null}
 
       {testimonials.map((t) => (
-        <Card key={t.id} className="overflow-hidden border-slate-200/80">
-          <CardHeader className="border-b border-slate-100 bg-slate-50/30">
+        <Card key={t.id} className="overflow-hidden border-border">
+          <CardHeader className="border-b border-border bg-muted/30">
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div className="flex items-center gap-3">
                 {t.photoUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={t.photoUrl} alt={t.name} className="h-12 w-12 rounded-full object-cover ring-2 ring-white shadow" />
                 ) : (
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-sky-100 text-sm font-bold text-sky-700">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/20 text-sm font-bold text-primary">
                     {t.name.slice(0, 1).toUpperCase()}
                   </div>
                 )}
@@ -145,7 +145,7 @@ export default async function ModerationPage({
                       {new Intl.DateTimeFormat("en-US", { dateStyle: "medium" }).format(t.createdAt)}
                     </span>
                     {t.photoUrl && (
-                      <span className="flex items-center gap-1 text-slate-400">
+                      <span className="flex items-center gap-1 text-muted-foreground">
                         <ImageIcon className="h-3.5 w-3.5" />
                         Photo
                       </span>
@@ -169,16 +169,16 @@ export default async function ModerationPage({
               <input type="hidden" name="slug" value={slug} />
               <input type="hidden" name="id" value={t.id} />
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700">Name</label>
+                <label className="text-sm font-medium text-foreground">Name</label>
                 <Input name="name" defaultValue={t.name} placeholder="Customer name" required />
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-700">Testimonial</label>
+                <label className="text-sm font-medium text-foreground">Testimonial</label>
                 <Textarea name="text" defaultValue={t.text} placeholder="Testimonial text" required className="min-h-24" />
               </div>
               <div className="flex flex-wrap items-center gap-3">
                 <div className="flex items-center gap-2">
-                  <label className="text-sm font-medium text-slate-700">Status</label>
+                  <label className="text-sm font-medium text-foreground">Status</label>
                   <Select name="status" defaultValue={t.status} className="w-36">
                     <option value="PENDING">Pending</option>
                     <option value="APPROVED">Approved</option>
@@ -188,7 +188,7 @@ export default async function ModerationPage({
                 <Button type="submit" size="sm">Save changes</Button>
               </div>
             </form>
-            <form action={deleteTestimonial} className="mt-4 pt-4 border-t border-slate-200">
+            <form action={deleteTestimonial} className="mt-4 pt-4 border-t border-border">
               <input type="hidden" name="slug" value={slug} />
               <input type="hidden" name="id" value={t.id} />
               <Button type="submit" variant="destructive" size="sm">Delete</Button>

@@ -26,12 +26,12 @@ export default function SignupPage() {
       >
         <Link
           href="/"
-          className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900"
+          className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to home
         </Link>
-        <Card className="border-slate-200/80 shadow-xl shadow-slate-200/40">
+        <Card className="border-border shadow-xl">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl">Create your account</CardTitle>
             <CardDescription>Start collecting testimonials in minutes. No credit card required.</CardDescription>
@@ -82,16 +82,16 @@ export default function SignupPage() {
               <Input id="password" type="password" name="password" minLength={6} required />
             </div>
             {error ? (
-              <div className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+              <div className="rounded-md border border-destructive/50 bg-destructive/10 px-3 py-2 text-sm text-destructive">
                 {error}
               </div>
             ) : null}
-            <Button className="w-full bg-sky-600 hover:bg-sky-500" type="submit" disabled={loading}>
+            <Button className="w-full" type="submit" disabled={loading}>
               {loading ? "Creating account..." : "Create account"}
             </Button>
-            <p className="text-center text-sm text-slate-500">
+            <p className="text-center text-sm text-muted-foreground">
               Already have an account?{" "}
-              <Link href="/login" className="font-medium text-sky-600 hover:text-sky-500 hover:underline">
+              <Link href="/login" className="font-medium text-primary hover:underline">
                 Sign in
               </Link>
             </p>

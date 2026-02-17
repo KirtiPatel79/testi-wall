@@ -24,8 +24,8 @@ export function SidebarNav() {
             href={href}
             className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
               isActive
-                ? "bg-sky-50 text-sky-700"
-                : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                ? "bg-sidebar-accent/20 text-sidebar-primary"
+                : "text-sidebar-foreground hover:bg-sidebar-accent/10 hover:text-sidebar-foreground"
             }`}
           >
             <Icon size={18} />
@@ -36,7 +36,7 @@ export function SidebarNav() {
       <div className="mt-auto hidden pt-4 md:block">
         <Link
           href="/"
-          className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+          className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-sidebar-foreground hover:bg-sidebar-accent/10 hover:text-sidebar-foreground"
         >
           <HelpCircle size={18} />
           Back to Home

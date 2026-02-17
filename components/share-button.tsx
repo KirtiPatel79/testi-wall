@@ -32,7 +32,7 @@ export function ShareButton({ url, title = "Share", label = "Share" }: ShareButt
 
   return (
     <Button type="button" variant="outline" size="sm" onClick={handleShare} className="gap-1.5">
-      {shared ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Share2 className="h-3.5 w-3.5" />}
+      {shared ? <Check className="h-3.5 w-3.5 text-secondary" /> : <Share2 className="h-3.5 w-3.5" />}
       {shared ? "Shared!" : label}
     </Button>
   );

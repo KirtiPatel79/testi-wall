@@ -19,7 +19,7 @@ export function CopyButton({ value, label = "Copy" }: { value: string; label?: s
       }}
       className="gap-1.5"
     >
-      {copied ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5" />}
+      {copied ? <Check className="h-3.5 w-3.5 text-secondary" /> : <Copy className="h-3.5 w-3.5" />}
       {copied ? "Copied!" : label}
     </Button>
   );

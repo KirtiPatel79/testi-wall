@@ -13,7 +13,7 @@ export function CreateProjectForm() {
   const [state, formAction] = useActionState(createProjectAction, { success: true, error: null });
 
   return (
-    <Card className="border-none shadow-xl shadow-slate-200/50">
+    <Card className="border-none shadow-xl">
       <CardHeader className="pb-4">
         <CardTitle>Create New Wall</CardTitle>
         <CardDescription>Launch a new collection space in seconds.</CardDescription>
@@ -27,8 +27,8 @@ export function CreateProjectForm() {
           <div className="space-y-2">
             <Label htmlFor="brandColor">Brand Color</Label>
             <div className="flex items-center gap-3">
-              <Input id="brandColor" name="brandColor" type="color" defaultValue="#0ea5e9" className="h-10 w-14 cursor-pointer rounded-lg border-slate-300 p-1" />
-              <span className="text-xs text-slate-500">Pick your accent color</span>
+              <Input id="brandColor" name="brandColor" type="color" defaultValue="#b71c1c" className="h-10 w-14 cursor-pointer rounded-lg border-input p-1" />
+              <span className="text-xs text-muted-foreground">Pick your accent color</span>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
@@ -48,11 +48,11 @@ export function CreateProjectForm() {
             </div>
           </div>
           {state?.error ? (
-            <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+            <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-3 text-sm text-destructive">
               {state.error}
             </div>
           ) : null}
-          <Button type="submit" className="w-full bg-sky-600 shadow-lg shadow-sky-100 hover:bg-sky-500">
+          <Button type="submit" className="w-full shadow-lg">
             Create Project <PlusCircle className="ml-2 h-4 w-4" />
           </Button>
         </form>

@@ -21,19 +21,19 @@ export default async function PublicWallPage({
     <main className="mx-auto max-w-6xl px-4 py-12 md:py-16">
       <Link
         href="/"
-        className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900"
+        className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
       >
         ← TestiWall
       </Link>
       <header className="mb-10">
-        <div className="flex items-center gap-2 text-sm font-medium text-sky-600">
+        <div className="flex items-center gap-2 text-sm font-medium text-primary">
           <Star className="h-4 w-4" />
           <span>Wall of Love</span>
         </div>
-        <h1 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 md:text-4xl">
+        <h1 className="mt-2 text-3xl font-bold tracking-tight text-foreground md:text-4xl">
           What people say about {project.name}
         </h1>
-        <p className="mt-2 text-slate-600">
+        <p className="mt-2 text-muted-foreground">
           Real testimonials from real customers.
         </p>
       </header>

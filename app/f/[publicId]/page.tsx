@@ -42,12 +42,12 @@ export default async function PublicFormPage({
     <main className="mx-auto max-w-2xl px-4 py-16">
       <Link
         href="/"
-        className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900"
+        className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
       >
         ← TestiWall
       </Link>
       <Card
-        className="overflow-hidden border-slate-200/80 shadow-xl shadow-slate-200/30"
+          className="overflow-hidden border-border shadow-xl"
         style={{ borderTop: `4px solid ${accentColor}` }}
       >
         <CardHeader>
@@ -66,17 +66,17 @@ export default async function PublicFormPage({
         </CardHeader>
         <CardContent className="space-y-4">
           {query.submitted ? (
-            <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800">
+            <div className="rounded-lg border border-secondary/50 bg-secondary/20 p-4 text-sm text-secondary-foreground">
               <strong>Thank you!</strong> Your testimonial was submitted for review. We&apos;ll let you know once it&apos;s published.
             </div>
           ) : null}
           {query.error ? (
-            <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+            <div className="rounded-lg border border-destructive/50 bg-destructive/10 p-4 text-sm text-destructive">
               {decodeURIComponent(query.error)}
             </div>
           ) : null}
           {isClosed ? (
-            <div className="rounded-lg border border-slate-200 bg-slate-50 p-6 text-center text-slate-600">
+            <div className="rounded-lg border border-border bg-muted p-6 text-center text-muted-foreground">
               {isInactive ? "Submissions are currently disabled." : "The submission limit has been reached."}
             </div>
           ) : (
@@ -120,16 +120,16 @@ export default async function PublicFormPage({
                   type="file"
                   accept="image/*"
                   name="photo"
-                  className="h-auto border-dashed py-3 file:mr-3 file:rounded-md file:border-0 file:bg-slate-100 file:px-4 file:py-2 file:text-sm file:font-medium"
+                  className="h-auto border-dashed py-3 file:mr-3 file:rounded-md file:border-0 file:bg-muted file:px-4 file:py-2 file:text-sm file:font-medium"
                 />
               </div>
-              <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-slate-200 bg-slate-50/50 p-3 transition-colors hover:bg-slate-50">
+              <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-border bg-muted/30 p-3 transition-colors hover:bg-muted/50">
                 <input type="checkbox" name="consent" required className="mt-1" />
-                <span className="text-sm text-slate-600">
+                <span className="text-sm text-foreground">
                   I consent to having this testimonial displayed publicly on {form.project.name}&apos;s website.
                 </span>
               </label>
-              <Button type="submit" className="w-full bg-sky-600 hover:bg-sky-500">
+              <Button type="submit" className="w-full">
                 Submit testimonial
               </Button>
             </form>

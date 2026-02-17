@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import Image from "next/image";
 import { revalidatePath } from "next/cache";
 import { notFound, redirect } from "next/navigation";
@@ -103,12 +103,12 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   return (
     <section className="space-y-6">
       <Card className="overflow-hidden border-0 shadow-sm">
-        <div className="border border-slate-200 bg-gradient-to-r from-slate-50 to-white p-6" style={{ borderTop: `3px solid ${project.brandColor}` }}>
+        <div className="border border-border bg-gradient-to-r from-muted/30 to-card p-6" style={{ borderTop: `3px solid ${project.brandColor}` }}>
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Project</p>
-              <h2 className="mt-1 text-3xl font-bold tracking-tight text-slate-900">{project.name}</h2>
-              <p className="mt-1 text-sm text-slate-600">/{project.slug}</p>
+              <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Project</p>
+              <h2 className="mt-1 text-3xl font-bold tracking-tight text-foreground">{project.name}</h2>
+              <p className="mt-1 text-sm text-muted-foreground">/{project.slug}</p>
             </div>
             <div className="flex flex-wrap gap-2">
               <Link href={wallUrl} target="_blank">
@@ -120,17 +120,17 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             </div>
           </div>
           <div className="mt-5 grid gap-3 md:grid-cols-4">
-            <div className="rounded-lg border border-slate-200 bg-white p-3">
-              <p className="text-xs text-slate-500">Total</p>
+            <div className="rounded-lg border border-border bg-card p-3">
+              <p className="text-xs text-muted-foreground">Total</p>
               <p className="mt-1 text-xl font-semibold">{project._count.testimonials}</p>
             </div>
             <div className="rounded-lg border border-amber-200 bg-amber-50 p-3">
               <p className="text-xs text-amber-700">Pending</p>
               <p className="mt-1 text-xl font-semibold text-amber-900">{pendingCount}</p>
             </div>
-            <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-3">
-              <p className="text-xs text-emerald-700">Approved</p>
-              <p className="mt-1 text-xl font-semibold text-emerald-900">{approvedCount}</p>
+            <div className="rounded-lg border border-secondary/50 bg-secondary/20 p-3">
+              <p className="text-xs text-secondary-foreground">Approved</p>
+              <p className="mt-1 text-xl font-semibold text-secondary-foreground">{approvedCount}</p>
             </div>
             <div className="rounded-lg border border-rose-200 bg-rose-50 p-3">
               <p className="text-xs text-rose-700">Rejected</p>
@@ -148,22 +148,22 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               <CardDescription>Send your form link to customers and share the public wall.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
-              <div className="rounded-md border border-slate-200 p-3 text-sm">
+              <div className="rounded-md border border-border p-3 text-sm">
                 <p className="font-medium">Customer form link</p>
-                <p className="mt-1 break-all text-slate-600">{formUrl}</p>
+                <p className="mt-1 break-all text-muted-foreground">{formUrl}</p>
                 <div className="mt-3 flex gap-2">
                   <CopyButton value={formUrl} label="Copy form link" />
                   <ShareButton url={formUrl} title={`${project.name} testimonial form`} label="Share form link" />
                   <Link href={formUrl} target="_blank"><Button size="sm" variant="outline">Open</Button></Link>
                 </div>
-                <div className="mt-4 w-fit rounded-md border border-slate-200 bg-white p-3">
-                  <p className="mb-2 text-xs text-slate-500">Scan QR to open form</p>
+                <div className="mt-4 w-fit rounded-md border border-border bg-card p-3">
+                  <p className="mb-2 text-xs text-muted-foreground">Scan QR to open form</p>
                   <Image src={formQrCodeUrl} alt={`QR code for ${project.name} form link`} width={160} height={160} className="rounded-md" unoptimized />
                 </div>
               </div>
-              <div className="rounded-md border border-slate-200 p-3 text-sm">
+              <div className="rounded-md border border-border p-3 text-sm">
                 <p className="font-medium">Public wall page</p>
-                <p className="mt-1 break-all text-slate-600">{wallUrl}</p>
+                <p className="mt-1 break-all text-muted-foreground">{wallUrl}</p>
                 <div className="mt-3 flex gap-2">
                   <CopyButton value={wallUrl} label="Copy wall link" />
                   <ShareButton url={wallUrl} title={`${project.name} testimonial wall`} label="Share wall link" />
@@ -179,11 +179,11 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               <CardDescription>Add the Wall of Love to your website. Paste this code where you want testimonials to appear.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-muted-foreground">
                 Paste this where you want testimonials. It reflects your current layout ({project.layout}) and theme ({project.theme}).
               </p>
               <div className="min-w-0">
-                <pre className="max-w-full overflow-x-auto rounded-md bg-slate-950 p-3 text-xs leading-relaxed text-slate-100">{embedSnippet}</pre>
+                <pre className="max-w-full overflow-x-auto rounded-md bg-muted p-3 text-xs leading-relaxed text-foreground">{embedSnippet}</pre>
               </div>
               <div className="flex flex-wrap gap-2">
                 <CopyButton value={embedSnippet} label="Copy embed code" />
@@ -204,9 +204,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             <CardDescription>Enable or disable public submissions from your form link.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
-            <div className="rounded-md border border-slate-200 bg-slate-50 p-3 text-sm">
+            <div className="rounded-md border border-border bg-muted p-3 text-sm">
               <p className="font-medium">Current status: {project.forms[0].isActive ? "Accepting submissions" : "Not accepting submissions"}</p>
-              <p className="mt-1 text-slate-600">Form URL stays the same. Turning this off blocks new submissions instantly.</p>
+              <p className="mt-1 text-muted-foreground">Form URL stays the same. Turning this off blocks new submissions instantly.</p>
             </div>
             <form action={updateFormAvailability}>
               <input type="hidden" name="slug" value={project.slug} />
