@@ -29,7 +29,7 @@ export default async function EmbedWallPage({
   const carouselAutoplay =
     autoplayParam === "true" ? true : autoplayParam === "false" ? false : project.carouselAutoplay;
   return (
-    <main className={cn("min-h-40 p-4 md:p-6", isDark ? "bg-slate-900" : "bg-slate-50")}>
+    <main className={cn("min-h-40 p-4 md:p-6 bg-transparent", isDark ? "text-slate-100" : "text-slate-900")}>
       <TestimonialWall
         items={project.testimonials}
         layout={layout}

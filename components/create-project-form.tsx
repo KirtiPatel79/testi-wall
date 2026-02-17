@@ -27,7 +27,7 @@ export function CreateProjectForm() {
           <div className="space-y-2">
             <Label htmlFor="brandColor">Brand Color</Label>
             <div className="flex items-center gap-3">
-              <Input id="brandColor" name="brandColor" type="color" defaultValue="#b71c1c" className="h-10 w-14 cursor-pointer rounded-lg border-input p-1" />
+              <Input id="brandColor" name="brandColor" type="color" defaultValue="#059669" className="h-10 w-14 cursor-pointer rounded-lg border-input p-1" />
               <span className="text-xs text-muted-foreground">Pick your accent color</span>
             </div>
           </div>

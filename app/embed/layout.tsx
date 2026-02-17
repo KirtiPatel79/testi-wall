@@ -1,6 +1,13 @@
 import Script from "next/script";
 
-export default function EmbedLayout({ children }: { children: React.ReactNode }) {
+export default async function EmbedLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<Record<string, string | string[]>>;
+}) {
+  await params;
   return (
     <>
       <Script

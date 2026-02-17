@@ -6,6 +6,7 @@ import { prisma } from "@/lib/prisma";
 import { requireUserId } from "@/lib/auth-helpers";
 import { CopyButton } from "@/components/copy-button";
 import { ShareButton } from "@/components/share-button";
+import { ShareQrButton } from "@/components/share-qr-button";
 import { ProjectAppearanceForm } from "@/components/project-appearance-form";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -128,9 +129,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               <p className="text-xs text-amber-700">Pending</p>
               <p className="mt-1 text-xl font-semibold text-amber-900">{pendingCount}</p>
             </div>
-            <div className="rounded-lg border border-secondary/50 bg-secondary/20 p-3">
-              <p className="text-xs text-secondary-foreground">Approved</p>
-              <p className="mt-1 text-xl font-semibold text-secondary-foreground">{approvedCount}</p>
+            <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-3 dark:border-emerald-800/60 dark:bg-emerald-950/40">
+              <p className="text-xs text-emerald-700 dark:text-emerald-400">Approved</p>
+              <p className="mt-1 text-xl font-semibold text-emerald-900 dark:text-emerald-100">{approvedCount}</p>
             </div>
             <div className="rounded-lg border border-rose-200 bg-rose-50 p-3">
               <p className="text-xs text-rose-700">Rejected</p>
@@ -158,7 +159,17 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 </div>
                 <div className="mt-4 w-fit rounded-md border border-border bg-card p-3">
                   <p className="mb-2 text-xs text-muted-foreground">Scan QR to open form</p>
+                  <p className="mb-3 text-xs text-muted-foreground max-w-[200px]">
+                    Share this QR code at events, on print materials, or post it for customers to scan and leave testimonials.
+                  </p>
                   <Image src={formQrCodeUrl} alt={`QR code for ${project.name} form link`} width={160} height={160} className="rounded-md" unoptimized />
+                  <ShareQrButton
+                    imageUrl={formQrCodeUrl}
+                    title={`${project.name} testimonial form`}
+                    description={`Scan this QR code to leave your testimonial for ${project.name}. Or open: ${formUrl}`}
+                    label="Share QR code"
+                    className="mt-3 w-full"
+                  />
                 </div>
               </div>
               <div className="rounded-md border border-border p-3 text-sm">
@@ -183,7 +194,9 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 Paste this where you want testimonials. It reflects your current layout ({project.layout}) and theme ({project.theme}).
               </p>
               <div className="min-w-0">
-                <pre className="max-w-full overflow-x-auto rounded-md bg-muted p-3 text-xs leading-relaxed text-foreground">{embedSnippet}</pre>
+                <pre className="embed-code-scrollbar max-w-full overflow-x-auto rounded-lg border border-slate-700/50 bg-slate-950 px-4 py-3 font-mono text-[13px] leading-relaxed text-slate-300 dark:border-slate-600/50">
+                  <code className="block whitespace-pre">{embedSnippet}</code>
+                </pre>
               </div>
               <div className="flex flex-wrap gap-2">
                 <CopyButton value={embedSnippet} label="Copy embed code" />

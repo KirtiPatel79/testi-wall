@@ -1,8 +1,15 @@
 import { requireUserId } from "@/lib/auth-helpers";
 import { SidebarNav } from "@/components/sidebar-nav";
 
-export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default async function DashboardLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<Record<string, string | string[]>>;
+}) {
   await requireUserId();
+  await params;
 
   return (
     <div className="flex min-h-[calc(100vh-64px)] w-full flex-col bg-background md:flex-row">
