@@ -146,9 +146,9 @@ if [ ! -f "$APP_DIR/.env" ]; then
 
   echo
   log_warn "Edit .env and set NEXTAUTH_URL and NEXT_PUBLIC_APP_URL to your domain or IP"
-  log_warn "Example: https://testiwall.example.com or http://YOUR_VPS_IP:3000"
+  log_warn "Example: https://testiwall.example.com or http://YOUR_VPS_IP:3001"
   echo
-  read -p "Enter your app URL (e.g. https://yourdomain.com or http://IP:3000): " APP_URL
+  read -p "Enter your app URL (e.g. https://yourdomain.com or http://IP:3001): " APP_URL
   if [ -n "$APP_URL" ]; then
     APP_URL=$(echo "$APP_URL" | sed 's|/$||')
     sed -i "s|https://your-domain.com|$APP_URL|g" "$APP_DIR/.env"

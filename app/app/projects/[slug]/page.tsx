@@ -103,7 +103,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   return (
     <section className="space-y-6">
       <Card className="overflow-hidden border-0 shadow-sm">
-        <div className="border border-border bg-gradient-to-r from-muted/30 to-card p-6" style={{ borderTop: `3px solid ${project.brandColor}` }}>
+        <div className="border border-border bg-linear-to-r from-muted/30 to-card p-6" style={{ borderTop: `3px solid ${project.brandColor}` }}>
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">Project</p>

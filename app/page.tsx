@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { MessageSquare, Shield, Zap, Globe, Code, ArrowRight, Star } from "lucide-react";
@@ -10,7 +11,7 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center overflow-x-hidden">
       {/* Hero Section */}
       <section className="relative flex w-full flex-col items-center justify-center bg-muted/30 px-4 py-24 text-center md:py-32">
-        <div className="absolute inset-0 z-0 opacity-20 [background-image:radial-gradient(var(--muted-foreground)_1px,transparent_1px)] [background-size:20px_20px]"></div>
+        <div className="absolute inset-0 z-0 opacity-20 bg-[radial-gradient(var(--muted-foreground)_1px,transparent_1px)] bg-size-[20px_20px]"></div>
         
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -28,7 +29,7 @@ export default function Home() {
           
           <h1 className="max-w-4xl text-5xl font-extrabold tracking-tight text-foreground md:text-7xl">
             Collect testimonials <br />
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-primary to-accent bg-clip-text text-transparent">
               without the friction.
             </span>
           </h1>
@@ -53,8 +54,15 @@ export default function Home() {
 
           <div className="mt-12 flex items-center gap-4 text-sm text-muted-foreground">
             <div className="flex -space-x-2">
-              {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="h-8 w-8 rounded-full border-2 border-background bg-muted" />
+              {["Alex", "Emma", "Jordan", "Sam"].map((name) => (
+                <Image
+                  key={name}
+                  src={`https://api.dicebear.com/7.x/avataaars/png?seed=${name}&size=64`}
+                  alt=""
+                  width={32}
+                  height={32}
+                  className="h-8 w-8 rounded-full border-2 border-background object-cover ring-2 ring-background"
+                />
               ))}
             </div>
             <span>Joined by 500+ makers and startups</span>
@@ -193,7 +201,7 @@ function Step({ number, title, description }: { number: string, title: string, d
       transition={{ duration: 0.4 }}
       className="flex flex-col items-center text-center"
     >
-      <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-accent text-2xl font-bold text-primary-foreground shadow-lg">
+      <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-primary to-accent text-2xl font-bold text-primary-foreground shadow-lg">
         {number}
       </div>
       <h3 className="mb-3 text-xl font-bold text-foreground">{title}</h3>

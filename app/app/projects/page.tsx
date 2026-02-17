@@ -80,7 +80,7 @@ export default async function ProjectsPage() {
       <div className="space-y-6">
         <CreateProjectForm />
         
-        <div className="rounded-2xl bg-gradient-to-br from-primary to-accent p-6 text-primary-foreground shadow-lg">
+        <div className="rounded-2xl bg-linear-to-br from-primary to-accent p-6 text-primary-foreground shadow-lg">
           <h4 className="font-bold">Pro Tip</h4>
           <p className="mt-2 text-sm opacity-95">Embed your Wall of Love on your landing page to increase conversion rates by up to 20%.</p>
           <Link href="/app/projects">

@@ -63,9 +63,9 @@ npm install
 npm run db:migrate:deploy
 npm run build
 
-# Run with PM2
+# Run with PM2 (port 3001 - 3000 often used by other apps)
 sudo npm i -g pm2
-pm2 start npm --name testiwall -- start
+pm2 start npm --name testiwall -- start -- -p 3001
 pm2 save && pm2 startup
 ```
 
