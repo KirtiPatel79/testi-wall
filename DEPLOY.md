@@ -85,6 +85,26 @@ export TESTIWALL_DB_NAME="testiwall"
 - **PM2:** `pm2 status`, `pm2 logs testiwall`, `pm2 restart testiwall`
 - **Nginx reverse proxy:** See `scripts/nginx-example.conf`
 
+## Recovering from Migration Error (P3018)
+
+If you get `relation "Project" does not exist` or `P3018`:
+
+1. **Reset the database** (drops all data):
+   ```bash
+   chmod +x scripts/db-reset.sh
+   ./scripts/db-reset.sh
+   ```
+
+2. **Or manually**:
+   ```bash
+   sudo -u postgres psql -c "DROP DATABASE IF EXISTS testiwall;"
+   sudo -u postgres psql -c "CREATE DATABASE testiwall OWNER testiwall;"
+   cd /path/to/repo
+   npm run db:migrate:deploy
+   ```
+
+3. Redeploy or restart the app.
+
 ## Updating
 
 ```bash
