@@ -1,0 +1,35 @@
+﻿version: "3.9"
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: testiwall-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: testiwall
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: testiwall-app
+    depends_on:
+      - postgres
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/testiwall?schema=public
+      NEXTAUTH_URL: http://localhost:3000
+      NEXT_PUBLIC_APP_URL: http://localhost:3000
+      NEXTAUTH_SECRET: changeme-please-replace
+      AUTH_TRUST_HOST: "true"
+    ports:
+      - "3000:3000"
+
+volumes:
+  pgdata:
