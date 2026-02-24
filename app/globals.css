@@ -1,5 +1,39 @@
 @import "tailwindcss";
 
+/* ── hero grid pattern ──────────────────────────────────────────────────────── */
+.hero-grid-bg {
+  background-image:
+    linear-gradient(rgba(5, 150, 105, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(5, 150, 105, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+.dark .hero-grid-bg {
+  background-image:
+    linear-gradient(rgba(16, 185, 129, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 185, 129, 0.05) 1px, transparent 1px);
+}
+
+/* ── floating card animations ───────────────────────────────────────────────── */
+@keyframes float-up   { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-14px); } }
+@keyframes float-down { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(14px);  } }
+
+/* ── 21st.dev component animations ─────────────────────────────────────────── */
+@keyframes shiny-text {
+  0%, 90%, 100% { background-position: calc(-100% - var(--shiny-width)) 0; }
+  30%, 60%      { background-position: calc(100% + var(--shiny-width)) 0; }
+}
+@keyframes border-beam {
+  100% { offset-distance: 100%; }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(calc(-100% - var(--gap))); }
+}
+@keyframes marquee-vertical {
+  from { transform: translateY(0); }
+  to   { transform: translateY(calc(-100% - var(--gap))); }
+}
+
 /* Styled scrollbar - global */
 html {
   scrollbar-width: thin;
@@ -198,4 +232,10 @@ html.dark::-webkit-scrollbar-thumb:hover {
   --shadow-lg: var(--shadow-lg);
   --shadow-xl: var(--shadow-xl);
   --shadow-2xl: var(--shadow-2xl);
+
+  /* 21st.dev animation utilities */
+  --animate-shiny-text: shiny-text 8s infinite;
+  --animate-border-beam: border-beam calc(var(--duration)*1s) infinite linear;
+  --animate-marquee: marquee var(--duration) linear infinite;
+  --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
 }
