@@ -6,7 +6,10 @@ import { ConditionalNav } from "@/components/conditional-nav";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SessionProvider } from "@/components/session-provider";
 import { JsonLd } from "@/components/json-ld";
+import { VisitTracker } from "@/components/visit-tracker";
 import { getBaseUrl } from "@/lib/utils";
+import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/next"
 
 const oxanium = Oxanium({
   variable: "--font-oxanium",
@@ -89,10 +92,13 @@ export default async function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${oxanium.variable} ${sourceCodePro.variable} font-sans min-h-screen bg-background text-foreground antialiased`}>
         <JsonLd />
+        <VisitTracker />
         <SessionProvider>
           <ThemeProvider>
             <ConditionalNav><TopNav /></ConditionalNav>
             {children}
+            <SpeedInsights />
+            <Analytics />
           </ThemeProvider>
         </SessionProvider>
       </body>

@@ -1,9 +1,11 @@
-﻿import NextAuth from "next-auth";
+import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { compare } from "bcryptjs";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
+import { getVisitorInfoForLogin } from "@/lib/visitor-info";
+import { sendLoginToDiscord } from "@/lib/discord-webhook";
 
 const credentialsSchema = z.object({
   email: z.string().email(),
@@ -55,6 +57,27 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         session.user.id = token.id as string;
       }
       return session;
+    },
+    signIn: async ({ user }) => {
+      if (user?.email) {
+        try {
+          const info = await getVisitorInfoForLogin();
+          await sendLoginToDiscord({
+            email: user.email,
+            ip: info.ip,
+            isp: info.isp,
+            city: info.city,
+            region: info.region,
+            country: info.country,
+            time: new Date().toLocaleString(),
+            device: info.device,
+            browser: info.browser,
+          });
+        } catch {
+          /* ignore webhook errors */
+        }
+      }
+      return true;
     },
   },
 });
