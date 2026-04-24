@@ -2,10 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import { PublicTestimonialForm } from "@/components/public-form";
 import { MessageSquare } from "lucide-react";
 
 export default async function PublicFormPage({
@@ -80,59 +77,11 @@ export default async function PublicFormPage({
               {isInactive ? "Submissions are currently disabled." : "The submission limit has been reached."}
             </div>
           ) : (
-            <form
+            <PublicTestimonialForm
               action={`/api/public/forms/${publicId}/submit`}
-              method="post"
-              encType="multipart/form-data"
-              className="space-y-4"
-            >
-              <input type="hidden" name="redirectTo" value={`/f/${publicId}`} />
-              <div className="space-y-2">
-                <Label htmlFor="customer_name">Name *</Label>
-                <Input id="customer_name" name="customer_name" placeholder="Your name" required />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="rating">Rating (1–5 stars, optional)</Label>
-                <Input
-                  id="rating"
-                  type="number"
-                  min={1}
-                  max={5}
-                  step={0.5}
-                  name="rating"
-                  placeholder="e.g. 5"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="testimonial_text">Your testimonial *</Label>
-                <Textarea
-                  id="testimonial_text"
-                  name="testimonial_text"
-                  placeholder="Tell us about your experience..."
-                  className="min-h-32"
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="photo">Photo (optional)</Label>
-                <Input
-                  id="photo"
-                  type="file"
-                  accept="image/*"
-                  name="photo"
-                  className="h-auto border-dashed py-3 file:mr-3 file:rounded-md file:border-0 file:bg-muted file:px-4 file:py-2 file:text-sm file:font-medium"
-                />
-              </div>
-              <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-border bg-muted/30 p-3 transition-colors hover:bg-muted/50">
-                <input type="checkbox" name="consent" required className="mt-1" />
-                <span className="text-sm text-foreground">
-                  I consent to having this testimonial displayed publicly on {form.project.name}&apos;s website.
-                </span>
-              </label>
-              <Button type="submit" className="w-full">
-                Submit testimonial
-              </Button>
-            </form>
+              publicId={publicId}
+              projectName={form.project.name}
+            />
           )}
         </CardContent>
       </Card>

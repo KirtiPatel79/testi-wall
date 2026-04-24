@@ -114,7 +114,7 @@ export default function Home() {
               </div>
             </div>
             <p className="text-xs leading-relaxed text-muted-foreground">
-              "Setup took 2 minutes and our landing page now converts 40% better!"
+              &ldquo;Setup took 2 minutes and our landing page now converts 40% better!&rdquo;
             </p>
             <div className="mt-2 flex items-center gap-1 text-[10px] text-primary/70 font-medium">
               <CheckCircle className="h-3 w-3" /> Verified customer
@@ -144,7 +144,7 @@ export default function Home() {
               </div>
             </div>
             <p className="text-xs leading-relaxed text-muted-foreground">
-              "50+ testimonials collected in our first month. The embed looks stunning!"
+              &ldquo;50+ testimonials collected in our first month. The embed looks stunning!&rdquo;
             </p>
             <div className="mt-2 flex items-center gap-1 text-[10px] text-primary/70 font-medium">
               <CheckCircle className="h-3 w-3" /> Verified customer
