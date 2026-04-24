@@ -2,20 +2,25 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPublicWall } from "@/lib/public-data";
 import { TestimonialWall } from "@/components/testimonial-wall";
-import { Star } from "lucide-react";
+import { LayoutGrid, LayoutList, Play, Star } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export default async function PublicWallPage({
   params,
   searchParams,
 }: {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ autoplay?: string }>;
+  searchParams: Promise<{ autoplay?: string; layout?: string }>;
 }) {
   const { slug } = await params;
-  const { autoplay } = await searchParams;
+  const { autoplay, layout: layoutOverride } = await searchParams;
   const project = await getPublicWall(slug);
   if (!project) notFound();
   const carouselAutoplay = autoplay === "true" ? true : autoplay === "false" ? false : project.carouselAutoplay;
+  const effectiveLayout =
+    layoutOverride === "list" || layoutOverride === "grid" || layoutOverride === "carousel"
+      ? layoutOverride
+      : project.layout;
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-12 md:py-16">
@@ -36,10 +41,41 @@ export default async function PublicWallPage({
         <p className="mt-2 text-muted-foreground">
           Real testimonials from real customers.
         </p>
+        <div className="mt-6 flex flex-wrap items-center gap-2">
+          <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+            Preview as
+          </span>
+          {(
+            [
+              { key: "grid", label: "Grid", icon: LayoutGrid },
+              { key: "list", label: "List", icon: LayoutList },
+              { key: "carousel", label: "Carousel", icon: Play },
+            ] as const
+          ).map(({ key, label, icon: Icon }) => {
+            const active = effectiveLayout === key;
+            return (
+              <Link
+                key={key}
+                href={`?layout=${key}`}
+                scroll={false}
+                prefetch={false}
+                className={cn(
+                  "inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-colors",
+                  active
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-border text-muted-foreground hover:bg-muted hover:text-foreground"
+                )}
+              >
+                <Icon className="h-3.5 w-3.5" />
+                {label}
+              </Link>
+            );
+          })}
+        </div>
       </header>
       <TestimonialWall
         items={project.testimonials}
-        layout={project.layout}
+        layout={effectiveLayout}
         theme={project.theme}
         brandColor={project.brandColor}
         carouselAutoplay={carouselAutoplay}
