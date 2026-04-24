@@ -119,6 +119,16 @@ export function TestimonialCarousel({
     };
   }, [autoplay, emblaApi]);
 
+  const pauseAutoScroll = useCallback(() => {
+    if (!autoplay) return;
+    emblaApi?.plugins().autoScroll?.stop();
+  }, [autoplay, emblaApi]);
+
+  const resumeAutoScroll = useCallback(() => {
+    if (!autoplay) return;
+    emblaApi?.plugins().autoScroll?.play();
+  }, [autoplay, emblaApi]);
+
   useEffect(() => {
     if (!emblaApi || autoplay) return;
     const node = rootRef.current;
@@ -143,6 +153,12 @@ export function TestimonialCarousel({
       role="region"
       aria-roledescription="carousel"
       aria-label="Testimonials"
+      onMouseEnter={pauseAutoScroll}
+      onMouseLeave={resumeAutoScroll}
+      onFocus={pauseAutoScroll}
+      onBlur={resumeAutoScroll}
+      onTouchStart={pauseAutoScroll}
+      onTouchEnd={resumeAutoScroll}
       className={cn(
         "embla-twall group/carousel relative outline-none",
         autoplay ? "px-0" : "px-12",
