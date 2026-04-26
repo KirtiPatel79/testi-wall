@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { buildReviewSchema, getPublicWall } from "@/lib/public-data";
 import { TestimonialWall } from "@/components/testimonial-wall";
 import { LayoutGrid, LayoutList, Play, Star } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, safeJsonLd } from "@/lib/utils";
 
 export async function generateMetadata({
   params,
@@ -67,7 +67,7 @@ export default async function PublicWallPage({
       {reviewSchema ? (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewSchema) }}
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(reviewSchema) }}
         />
       ) : null}
       <Link

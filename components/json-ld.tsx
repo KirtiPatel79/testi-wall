@@ -1,4 +1,4 @@
-import { getBaseUrl } from "@/lib/utils";
+import { getBaseUrl, safeJsonLd } from "@/lib/utils";
 import { FAQ_ITEMS, FEATURE_LIST } from "@/lib/marketing-content";
 
 export function JsonLd() {
@@ -75,19 +75,19 @@ export function JsonLd() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(organization) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(website) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(website) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareApplication) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(softwareApplication) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPage) }}
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(faqPage) }}
       />
     </>
   );
