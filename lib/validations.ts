@@ -44,6 +44,12 @@ export const moderationUpdateSchema = z.object({
 });
 
 export const signupSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(6).max(100),
+  email: z.string().email().max(254),
+  password: z
+    .string()
+    .min(8, "Password must be at least 8 characters.")
+    .max(100)
+    .refine((value) => /[A-Za-z]/.test(value) && /[0-9]/.test(value), {
+      message: "Password must contain at least one letter and one number.",
+    }),
 });

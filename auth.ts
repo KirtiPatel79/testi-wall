@@ -60,22 +60,26 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
     signIn: async ({ user }) => {
       if (user?.email) {
-        try {
-          const info = await getVisitorInfoForLogin();
-          await sendLoginToDiscord({
-            email: user.email,
-            ip: info.ip,
-            isp: info.isp,
-            city: info.city,
-            region: info.region,
-            country: info.country,
-            time: new Date().toLocaleString(),
-            device: info.device,
-            browser: info.browser,
-          });
-        } catch {
-          /* ignore webhook errors */
-        }
+        // Fire-and-forget: never block the login response on Discord / 3rd-party
+        // geolocation APIs. Any error is silently swallowed.
+        void (async () => {
+          try {
+            const info = await getVisitorInfoForLogin();
+            await sendLoginToDiscord({
+              email: user.email!,
+              ip: info.ip,
+              isp: info.isp,
+              city: info.city,
+              region: info.region,
+              country: info.country,
+              time: new Date().toLocaleString(),
+              device: info.device,
+              browser: info.browser,
+            });
+          } catch {
+            /* ignore webhook errors */
+          }
+        })();
       }
       return true;
     },

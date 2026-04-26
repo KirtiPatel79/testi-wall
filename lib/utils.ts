@@ -27,6 +27,19 @@ export function getBaseUrl(): string {
   return process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
 }
 
+/**
+ * Serialize a value to a JSON string that's safe to embed inside a
+ * <script type="application/ld+json"> tag via dangerouslySetInnerHTML.
+ *
+ * JSON.stringify does not escape `</script>` or `<!--`, so any user-controlled
+ * field (e.g. a project name) could break out of the script tag and inject
+ * arbitrary HTML. Escaping `<` to `\u003c` keeps the JSON valid and prevents
+ * the XSS without changing the parsed value.
+ */
+export function safeJsonLd(value: unknown): string {
+  return JSON.stringify(value).replace(/</g, "\\u003c");
+}
+
 export function formatDate(input: Date): string {
   return new Intl.DateTimeFormat("en-US", {
     month: "short",

@@ -24,22 +24,36 @@ const sourceCodePro = Source_Code_Pro({
 
 const baseUrl = getBaseUrl();
 
+const OG_TITLE =
+  "TestiWall — Collect & Embed Customer Testimonials in Minutes";
+const OG_DESC =
+  "Free, no-code testimonial collection and embed widgets. Branded forms, built-in moderation, and grid / list / carousel walls that load fast and look great on any site.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "TestiWall – Collect & Embed Testimonials Without the Friction",
-    template: "%s | TestiWall",
+    default: OG_TITLE,
+    template: "%s · TestiWall",
   },
-  description:
-    "The easiest way to gather social proof and showcase it on your website. Set up in minutes, embed anywhere with one line of code. Collect, moderate, and display testimonials.",
+  description: OG_DESC,
+  applicationName: "TestiWall",
   keywords: [
     "testimonials",
+    "customer testimonials",
     "social proof",
     "customer reviews",
     "embed testimonials",
     "testimonial widget",
     "wall of love",
     "landing page testimonials",
+    "review collection",
+    "no-code testimonials",
+    "testimonial form",
+    "testimonial carousel",
+    "testimonial grid",
+    "testimonials.to alternative",
+    "senja alternative",
+    "free testimonial software",
   ],
   authors: [{ name: "TestiWall" }],
   creator: "TestiWall",
@@ -54,24 +68,39 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: baseUrl,
     siteName: "TestiWall",
-    title: "TestiWall – Collect & Embed Testimonials Without the Friction",
-    description:
-      "The easiest way to gather social proof and showcase it on your website. Set up in minutes, embed anywhere with one line of code.",
+    title: OG_TITLE,
+    description: OG_DESC,
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "TestiWall — collect and embed customer testimonials",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "TestiWall – Collect & Embed Testimonials Without the Friction",
-    description:
-      "The easiest way to gather social proof and showcase it on your website. Set up in minutes, embed anywhere.",
+    title: OG_TITLE,
+    description: OG_DESC,
+    images: ["/opengraph-image"],
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
   alternates: {
-    canonical: baseUrl,
+    canonical: "/",
   },
   category: "technology",
+  referrer: "origin-when-cross-origin",
 };
 
 export const viewport: Viewport = {

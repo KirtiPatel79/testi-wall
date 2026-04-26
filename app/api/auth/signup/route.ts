@@ -8,7 +8,12 @@ export async function POST(request: Request) {
   const parsed = signupSchema.safeParse(body);
 
   if (!parsed.success) {
-    return NextResponse.json({ error: parsed.error.flatten().fieldErrors }, { status: 400 });
+    const fieldErrors = parsed.error.flatten().fieldErrors;
+    const firstMessage =
+      fieldErrors.email?.[0] ||
+      fieldErrors.password?.[0] ||
+      "Please check your email and password.";
+    return NextResponse.json({ error: firstMessage }, { status: 400 });
   }
 
   const email = parsed.data.email.toLowerCase();
