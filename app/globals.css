@@ -34,6 +34,33 @@
   to   { transform: translateY(calc(-100% - var(--gap))); }
 }
 
+/* ── Testimonial autoplay marquee ──────────────────────────────────────────── */
+/*
+ * Uses a doubled track and translates by exactly -50% so the loop seam is
+ * pixel-perfect. Animated on the compositor (transform-only + will-change),
+ * which keeps it smooth on the GPU regardless of JS load on the main thread.
+ */
+@keyframes twall-marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(var(--twall-marquee-distance, -50%), 0, 0); }
+}
+.twall-marquee__track {
+  animation: twall-marquee var(--twall-marquee-duration, 60s) linear infinite;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+.twall-marquee:hover .twall-marquee__track,
+.twall-marquee:focus-within .twall-marquee__track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .twall-marquee__track {
+    animation: none;
+    transform: none;
+  }
+}
+
 /* Styled scrollbar - global */
 html {
   scrollbar-width: thin;
