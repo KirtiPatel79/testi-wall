@@ -7,9 +7,9 @@ import { useSession } from "next-auth/react";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
-  Check,
   Code,
   Globe,
+  Heart,
   LayoutGrid,
   LayoutList,
   MessageSquare,
@@ -31,6 +31,7 @@ import { AnimatedShinyText } from "@/components/ui/animated-shiny-text";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { NumberTicker } from "@/components/ui/number-ticker";
 import { cn } from "@/lib/utils";
+import { FAQ_ITEMS as FAQ } from "@/lib/marketing-content";
 
 /* ────────────────────────────────────────────────────────────────────────── */
 /*  Sample data                                                                */
@@ -139,80 +140,6 @@ const FEATURES = [
     icon: Globe,
     title: "Built for the web",
     desc: "Accessible, SEO-friendly, fully responsive, dark-mode aware out of the box.",
-  },
-] as const;
-
-const PRICING = [
-  {
-    name: "Free",
-    price: "$0",
-    cadence: "forever",
-    desc: "Everything you need to validate the idea on a side project.",
-    features: [
-      "1 project",
-      "25 approved testimonials",
-      "Grid + list layouts",
-      "TestiWall branding",
-    ],
-    cta: "Start free",
-    href: "/signup",
-    highlight: false,
-  },
-  {
-    name: "Pro",
-    price: "$19",
-    cadence: "/ month",
-    desc: "For growing teams who want their own brand on every wall.",
-    features: [
-      "Unlimited projects",
-      "Unlimited testimonials",
-      "All layouts including carousel",
-      "Photo testimonials",
-      "Custom brand color & theme",
-      "Remove TestiWall branding",
-    ],
-    cta: "Start 14-day trial",
-    href: "/signup",
-    highlight: true,
-  },
-  {
-    name: "Team",
-    price: "$49",
-    cadence: "/ month",
-    desc: "Multi-seat teams running social proof at scale.",
-    features: [
-      "Everything in Pro",
-      "5 team members",
-      "Per-project roles",
-      "Priority support",
-      "SLA & onboarding call",
-    ],
-    cta: "Talk to sales",
-    href: "/signup",
-    highlight: false,
-  },
-] as const;
-
-const FAQ = [
-  {
-    q: "Do my customers need an account to leave a testimonial?",
-    a: "No. You share a public form link and they submit their testimonial in under a minute. No login, no friction.",
-  },
-  {
-    q: "How do I embed the wall on my site?",
-    a: "Copy the one-line iframe snippet from your project dashboard and paste it anywhere — Webflow, Framer, WordPress, Notion, plain HTML, you name it.",
-  },
-  {
-    q: "Can I moderate testimonials before they appear?",
-    a: "Yes. Every submission lands in a moderation queue. You approve, edit, or reject before anything goes live on your wall.",
-  },
-  {
-    q: "Is it GDPR-friendly?",
-    a: "Yes. We collect only what your customer chooses to share, surface a clear consent checkbox on the form, and never sell or share data with third parties.",
-  },
-  {
-    q: "Will it slow down my site?",
-    a: "No. The widget is lazy-loaded, edge-cached, and uses an iframe so your main thread is never blocked.",
   },
 ] as const;
 
@@ -682,86 +609,48 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── Pricing ──────────────────────────────────────────────── */}
+      {/* ─── Free-while-in-beta callout ──────────────────────────── */}
       <section
         id="pricing"
-        className="w-full border-y border-border/60 bg-muted/15 px-4 py-24 md:py-32"
+        className="w-full border-y border-border/60 bg-muted/15 px-4 py-24 md:py-28"
       >
-        <div className="mx-auto max-w-6xl">
-          <SectionHeading
-            eyebrow="Pricing"
-            title="Simple, transparent pricing"
-            description="Start free, upgrade when you outgrow it. Cancel any time — no questions asked."
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="relative mx-auto max-w-3xl overflow-hidden rounded-3xl border border-primary/30 bg-card p-10 text-center shadow-xl md:p-14"
+        >
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -top-24 left-1/2 h-56 w-56 -translate-x-1/2 rounded-full bg-primary/20 blur-3xl"
           />
-
-          <div className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-3">
-            {PRICING.map((tier, i) => (
-              <motion.div
-                key={tier.name}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.06 }}
-                className={cn(
-                  "relative flex flex-col rounded-2xl border bg-card p-8 shadow-sm transition-shadow hover:shadow-lg",
-                  tier.highlight
-                    ? "border-primary/60 ring-1 ring-primary/30"
-                    : "border-border"
-                )}
-              >
-                {tier.highlight && (
-                  <span className="absolute -top-3 left-1/2 inline-flex -translate-x-1/2 items-center gap-1 rounded-full bg-primary px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-primary-foreground shadow">
-                    <Sparkles className="h-3 w-3" />
-                    Most popular
-                  </span>
-                )}
-
-                <div className="mb-2 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-                  {tier.name}
-                </div>
-                <div className="mb-1 flex items-baseline gap-1">
-                  <span className="text-5xl font-extrabold tracking-tight text-foreground">
-                    {tier.price}
-                  </span>
-                  <span className="text-sm font-medium text-muted-foreground">
-                    {tier.cadence}
-                  </span>
-                </div>
-                <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
-                  {tier.desc}
-                </p>
-
-                <ul className="mb-8 flex-1 space-y-2.5 text-sm text-foreground/90">
-                  {tier.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2.5">
-                      <span
-                        className={cn(
-                          "mt-0.5 flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-full",
-                          tier.highlight
-                            ? "bg-primary text-primary-foreground"
-                            : "bg-primary/10 text-primary"
-                        )}
-                      >
-                        <Check className="h-3 w-3 stroke-[3]" />
-                      </span>
-                      <span>{f}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <Link href={tier.href} className="mt-auto">
-                  <Button
-                    size="lg"
-                    variant={tier.highlight ? "default" : "outline"}
-                    className="w-full"
-                  >
-                    {tier.cta}
-                  </Button>
-                </Link>
-              </motion.div>
-            ))}
+          <span className="relative mb-5 inline-flex items-center gap-1.5 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+            <Heart className="h-3 w-3 fill-primary" />
+            Free while in beta
+          </span>
+          <h2 className="relative text-balance text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+            Every feature, $0.
+          </h2>
+          <p className="relative mx-auto mt-4 max-w-xl text-pretty text-base text-muted-foreground md:text-lg">
+            Unlimited projects, unlimited testimonials, every layout, every
+            theme. No credit card. Use it on as many sites as you want — we&apos;ll
+            tell you long before anything ever changes.
+          </p>
+          <div className="relative mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+            <Link href={isLoggedIn ? "/app/projects" : "/signup"}>
+              <Button size="lg" className="h-12 px-8 text-base">
+                {isLoggedIn ? "Open dashboard" : "Get started — free"}
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+            <Link href="/w/demo-project" target="_blank">
+              <Button size="lg" variant="outline" className="h-12 px-8 text-base">
+                <Play className="mr-2 h-4 w-4" />
+                See demo wall
+              </Button>
+            </Link>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* ─── FAQ ──────────────────────────────────────────────────── */}
@@ -913,7 +802,7 @@ export default function Home() {
             title="Product"
             items={[
               { label: "Live demo", href: "/w/demo-project" },
-              { label: "Pricing", href: "#pricing" },
+              { label: "Free while in beta", href: "#pricing" },
               { label: "Login", href: "/login" },
               { label: "Sign up", href: "/signup" },
             ]}

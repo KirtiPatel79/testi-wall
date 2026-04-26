@@ -1,9 +1,30 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { PublicTestimonialForm } from "@/components/public-form";
 import { MessageSquare } from "lucide-react";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ publicId: string }>;
+}): Promise<Metadata> {
+  const { publicId } = await params;
+  const form = await prisma.form.findUnique({
+    where: { publicId },
+    select: { project: { select: { name: true } } },
+  });
+  const projectName = form?.project?.name ?? "TestiWall";
+  return {
+    title: `Leave a testimonial for ${projectName}`,
+    description: `Share your experience with ${projectName}. Submit a testimonial in under a minute — no account required.`,
+    // Public form links are unique per-customer; keep them out of search
+    // results so private/personalized links never get indexed.
+    robots: { index: false, follow: false },
+  };
+}
 
 export default async function PublicFormPage({
   params,

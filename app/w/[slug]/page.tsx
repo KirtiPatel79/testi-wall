@@ -1,9 +1,44 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getPublicWall } from "@/lib/public-data";
+import { buildReviewSchema, getPublicWall } from "@/lib/public-data";
 import { TestimonialWall } from "@/components/testimonial-wall";
 import { LayoutGrid, LayoutList, Play, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const project = await getPublicWall(slug);
+  if (!project) {
+    return {
+      title: "Wall not found",
+      robots: { index: false, follow: false },
+    };
+  }
+  const title = `${project.name} — Wall of Love`;
+  const description = `Real testimonials and customer reviews for ${project.name}. Built with TestiWall.`;
+  return {
+    title,
+    description,
+    alternates: { canonical: `/w/${slug}` },
+    openGraph: {
+      type: "website",
+      url: `/w/${slug}`,
+      title,
+      description,
+      siteName: "TestiWall",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+  };
+}
 
 export default async function PublicWallPage({
   params,
@@ -22,8 +57,19 @@ export default async function PublicWallPage({
       ? layoutOverride
       : project.layout;
 
+  const reviewSchema = buildReviewSchema(
+    project.name,
+    project.testimonials.map((t) => ({ rating: t.rating, text: t.text, name: t.name }))
+  );
+
   return (
     <main className="mx-auto max-w-6xl px-4 py-12 md:py-16">
+      {reviewSchema ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewSchema) }}
+        />
+      ) : null}
       <Link
         href="/"
         className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
@@ -53,10 +99,15 @@ export default async function PublicWallPage({
             ] as const
           ).map(({ key, label, icon: Icon }) => {
             const active = effectiveLayout === key;
+            const params = new URLSearchParams();
+            params.set("layout", key);
+            if (autoplay === "true" || autoplay === "false") {
+              params.set("autoplay", autoplay);
+            }
             return (
               <Link
                 key={key}
-                href={`?layout=${key}`}
+                href={`?${params.toString()}`}
                 scroll={false}
                 prefetch={false}
                 className={cn(
